@@ -1296,7 +1296,34 @@ function handleTransactionSubmit() {
     } else {
         proceedWithSpend(txData);
         closeTransactionModal();
+        showPaymentToast(txData.amount, txData.title);
     }
+}
+
+function showPaymentToast(amount, title) {
+    const existing = document.getElementById('payment-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'payment-toast';
+    toast.className = 'payment-toast';
+    toast.innerHTML = `
+        <div class="payment-toast-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div>
+            <div class="payment-toast-title">Payment Successful</div>
+            <div class="payment-toast-sub">${formatCurrency(amount)} paid for ${title}</div>
+        </div>
+    `;
+    document.querySelector('.app-container').appendChild(toast);
+
+    // Animate in
+    requestAnimationFrame(() => toast.classList.add('show'));
+
+    // Auto dismiss after 3s
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 350);
+    }, 3000);
 }
 
 function proceedWithSpend(txData) {

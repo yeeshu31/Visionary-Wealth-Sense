@@ -162,27 +162,30 @@
                     <h3>New Transaction</h3>
                     <button class="modal-close-btn" id="modal-close"><i class="fa-solid fa-xmark"></i></button>
                 </div>
-                <div class="tx-amount-row">
-                    <span class="tx-currency-symbol">₹</span>
-                    <input type="number" id="tx-amount" class="tx-amount-input" placeholder="0" inputmode="numeric" min="1">
-                </div>
-                <p class="tx-section-label">Category</p>
-                <div class="tx-category-grid" id="tx-category-grid"></div>
-
-                <div class="tx-classify-section" id="tx-classify-section">
-                    <p class="tx-section-label">Classify as</p>
-                    <div class="tx-type-toggle">
-                        <button class="tx-type-btn" id="tx-type-essential-btn">
-                            <i class="fa-solid fa-heart"></i> Essential
-                        </button>
-                        <button class="tx-type-btn" id="tx-type-nonessential-btn">
-                            <i class="fa-solid fa-gem"></i> Non-Essential
-                        </button>
+                <div class="modal-sheet-scroll">
+                    <div class="tx-amount-row">
+                        <span class="tx-currency-symbol">₹</span>
+                        <input type="number" id="tx-amount" class="tx-amount-input" placeholder="0" inputmode="numeric" min="1">
                     </div>
-                    <div class="tx-preview-card" id="tx-preview-card"></div>
-                </div>
+                    <p class="tx-section-label">Category</p>
+                    <div class="tx-category-grid" id="tx-category-grid"></div>
 
-                <button class="tx-submit-btn" id="tx-submit">Proceed <i class="fa-solid fa-arrow-right"></i></button>
+                    <div class="tx-classify-section" id="tx-classify-section">
+                        <p class="tx-section-label">Classify as</p>
+                        <div class="tx-type-toggle">
+                            <button class="tx-type-btn" id="tx-type-essential-btn">
+                                <i class="fa-solid fa-heart"></i> Essential
+                            </button>
+                            <button class="tx-type-btn" id="tx-type-nonessential-btn">
+                                <i class="fa-solid fa-gem"></i> Non-Essential
+                            </button>
+                        </div>
+                        <div class="tx-preview-card" id="tx-preview-card"></div>
+                    </div>
+                </div>
+                <div class="modal-sheet-footer">
+                    <button class="tx-submit-btn" id="tx-submit">Proceed <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
             </div>
         </div>
 
