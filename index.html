@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visionary Wealth Sense</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <button class="back-btn" id="back-btn" style="display:none;">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <h1 id="page-title">Visionary Wealth Sense</h1>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="app-content">
+            <!-- Home View -->
+            <section id="home-view" class="view active">
+                <button class="perform-tx-btn" id="fab-btn">
+                    <span class="perform-tx-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
+                    <span class="perform-tx-label">Perform Transaction</span>
+                    <i class="fa-solid fa-chevron-right perform-tx-chevron"></i>
+                </button>
+
+                <!-- Gamification: Streak -->
+                <div id="streak-card"></div>
+
+                <div class="filter-bar" id="home-period-filter"></div>
+
+                <div class="summary-card" id="summary-card">
+                    <p class="summary-label" id="summary-label">Total Spend</p>
+                    <h2 class="summary-amount" id="total-spend">$0.00</h2>
+                </div>
+
+                <div class="essentials-container">
+                    <div class="essential-card" data-filter="essential">
+                        <div class="icon-box essentials-icon">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                        </div>
+                        <div class="info">
+                            <p class="label">Essentials</p>
+                            <p class="amount" id="essentials-spend">$0.00</p>
+                        </div>
+                    </div>
+                    <div class="essential-card" data-filter="non-essential">
+                        <div class="icon-box non-essentials-icon">
+                            <i class="fa-solid fa-gem"></i>
+                        </div>
+                        <div class="info">
+                            <p class="label">Non-Essentials</p>
+                            <p class="amount" id="non-essentials-spend">$0.00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="spendChart"></canvas>
+                </div>
+
+                <!-- SBI Trust Card -->
+                <div class="sbi-trust-card">
+                    <div class="sbi-trust-header">
+                        <div class="sbi-trust-logo">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <div>
+                            <p class="sbi-trust-eyebrow">Why invest with SBI?</p>
+                            <h3 class="sbi-trust-headline">India's Most Trusted Investment Partner</h3>
+                        </div>
+                    </div>
+
+                    <div class="sbi-trust-stats">
+                        <div class="sbi-stat">
+                            <span class="sbi-stat-value">₹7L+ Cr</span>
+                            <span class="sbi-stat-label">Assets Managed</span>
+                        </div>
+                        <div class="sbi-stat-divider"></div>
+                        <div class="sbi-stat">
+                            <span class="sbi-stat-value">4 Cr+</span>
+                            <span class="sbi-stat-label">Investors</span>
+                        </div>
+                        <div class="sbi-stat-divider"></div>
+                        <div class="sbi-stat">
+                            <span class="sbi-stat-value">65+ Yrs</span>
+                            <span class="sbi-stat-label">Of Excellence</span>
+                        </div>
+                    </div>
+
+                    <div class="sbi-trust-badges">
+                        <span class="sbi-badge"><i class="fa-solid fa-check"></i> SEBI Registered</span>
+                        <span class="sbi-badge"><i class="fa-solid fa-check"></i> Govt. Backed</span>
+                        <span class="sbi-badge"><i class="fa-solid fa-check"></i> DICGC Insured</span>
+                        <span class="sbi-badge"><i class="fa-solid fa-check"></i> AMFI Certified</span>
+                    </div>
+                </div>
+
+                <!-- Gamification: Invest Summary, Badges, Insight, Tip -->
+                <div id="invest-summary"></div>
+                <div id="behavior-insight"></div>
+                <div id="badges-section"></div>
+                <div id="wealth-tip"></div>
+            </section>
+
+            <!-- History View -->
+            <section id="history-view" class="view">
+                <div class="history-toggle-bar">
+                    <button class="history-toggle-btn active" id="toggle-transactions">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Transactions
+                    </button>
+                    <button class="history-toggle-btn" id="toggle-investments">
+                        <i class="fa-solid fa-seedling"></i> Investments
+                    </button>
+                </div>
+
+                <!-- Spending history -->
+                <div id="spending-history-content">
+                    <div class="filter-bar" id="filter-bar"></div>
+                    <div class="filter-bar" id="filter-bar-type"></div>
+                    <div class="transactions-list" id="transactions-list"></div>
+                </div>
+
+                <!-- Investment history -->
+                <div id="investment-history-content" style="display:none;">
+                    <div class="transactions-list" id="investment-history-list"></div>
+                </div>
+            </section>
+
+            <!-- Recommendations / Insights View -->
+            <section id="recommendations-view" class="view">
+                <div id="recommendations-container"></div>
+            </section>
+
+            <!-- Investments View -->
+            <section id="investments-view" class="view">
+                <div id="investments-home-view">
+                    <!-- Rendered by renderInvestmentsHome() -->
+                </div>
+                <div id="investment-type-view" style="display:none;">
+                    <!-- Rendered by renderTypeView() -->
+                </div>
+                <div id="investment-scheme-view" style="display:none;">
+                    <!-- Rendered by renderSchemeView() -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Transaction Modal (bottom sheet) -->
+        <div class="modal-overlay" id="transaction-modal">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+                <div class="modal-header">
+                    <h3>New Transaction</h3>
+                    <button class="modal-close-btn" id="modal-close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="tx-amount-row">
+                    <span class="tx-currency-symbol">₹</span>
+                    <input type="number" id="tx-amount" class="tx-amount-input" placeholder="0" inputmode="numeric" min="1">
+                </div>
+                <p class="tx-section-label">Category</p>
+                <div class="tx-category-grid" id="tx-category-grid"></div>
+
+                <div class="tx-classify-section" id="tx-classify-section">
+                    <p class="tx-section-label">Classify as</p>
+                    <div class="tx-type-toggle">
+                        <button class="tx-type-btn" id="tx-type-essential-btn">
+                            <i class="fa-solid fa-heart"></i> Essential
+                        </button>
+                        <button class="tx-type-btn" id="tx-type-nonessential-btn">
+                            <i class="fa-solid fa-gem"></i> Non-Essential
+                        </button>
+                    </div>
+                    <div class="tx-preview-card" id="tx-preview-card"></div>
+                </div>
+
+                <button class="tx-submit-btn" id="tx-submit">Proceed <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Essential Affirmation Overlay -->
+        <div class="essential-overlay" id="essential-overlay">
+            <div class="essential-sheet">
+                <div class="essential-visual">
+                    <div class="essential-icon-wrap">
+                        <i class="fa-solid fa-heart" id="essential-icon"></i>
+                    </div>
+                    <p class="essential-tagline">Visionary Wealth Sense</p>
+                </div>
+                <p class="essential-badge">Essential Expense</p>
+                <h2 class="essential-amount" id="essential-amount">₹0</h2>
+                <p class="essential-category" id="essential-category">on Groceries</p>
+                <p class="essential-msg" id="essential-msg"></p>
+                <button class="essential-confirm-btn" id="essential-confirm-btn">
+                    <i class="fa-solid fa-check"></i> Confirm & Pay
+                </button>
+                <button class="essential-cancel-btn" id="essential-cancel-btn">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Nudge Overlay -->
+        <div class="nudge-overlay" id="nudge-overlay">
+            <div class="nudge-sheet">
+                <div class="nudge-visual">
+                    <div class="nudge-icon-wrap">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <p class="nudge-tagline">Visionary Wealth Sense</p>
+                </div>
+                <p class="nudge-eyebrow">Think before you spend</p>
+                <h2 class="nudge-headline" id="nudge-amount">₹0</h2>
+                <p class="nudge-subhead" id="nudge-on">on Shopping</p>
+                <div class="nudge-vs-row">
+                    <div class="nudge-vs-item nudge-vs-spend">
+                        <span class="nudge-vs-label">Spent today</span>
+                        <span class="nudge-vs-value" id="nudge-spend-val">₹0</span>
+                        <span class="nudge-vs-sub">gone forever</span>
+                    </div>
+                    <div class="nudge-vs-arrow">
+                        <i class="fa-solid fa-right-long"></i>
+                    </div>
+                    <div class="nudge-vs-item nudge-vs-grow">
+                        <span class="nudge-vs-label">If invested</span>
+                        <span class="nudge-vs-value" id="nudge-invest-val">₹0</span>
+                        <span class="nudge-vs-sub">in 5 years</span>
+                    </div>
+                </div>
+                <div class="nudge-fund-card" id="nudge-fund-card"></div>
+                <button class="nudge-invest-btn" id="nudge-invest-btn">
+                    <i class="fa-solid fa-seedling"></i> Invest Instead
+                </button>
+                <button class="nudge-proceed-btn" id="nudge-proceed-btn">Proceed with Spend</button>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active" data-target="home-view" data-title="Visionary Wealth Sense">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" data-target="history-view" data-title="Transaction History">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>History</span>
+            </a>
+            <a href="#" class="nav-item" data-target="investments-view" data-title="Invest">
+                <i class="fa-solid fa-seedling"></i>
+                <span>Invest</span>
+            </a>
+            <a href="#" class="nav-item" data-target="recommendations-view" data-title="Recommendations">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>Recs</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
