@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="url(#grad)"/>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <!-- Seedling / growth icon -->
+  <g transform="translate(256,256)">
+    <!-- Stem -->
+    <rect x="-10" y="-60" width="20" height="120" rx="10" fill="#ffffff" opacity="0.9"/>
+    <!-- Left leaf -->
+    <ellipse cx="-48" cy="-20" rx="44" ry="24" fill="#ffffff" opacity="0.85" transform="rotate(-30 -48 -20)"/>
+    <!-- Right leaf -->
+    <ellipse cx="48" cy="-20" rx="44" ry="24" fill="#ffffff" opacity="0.85" transform="rotate(30 48 -20)"/>
+    <!-- Ground line -->
+    <rect x="-80" y="60" width="160" height="12" rx="6" fill="#ffffff" opacity="0.4"/>
+  </g>
+</svg>
