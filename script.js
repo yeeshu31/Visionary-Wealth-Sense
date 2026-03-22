@@ -254,6 +254,7 @@ const formatDate = (dateStr) => {
 // ─── Initialize App ────────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('page-title').classList.add('home-title');
     initNavigation();
     initHomePeriodFilter();
     initFilter();
@@ -331,6 +332,7 @@ function initNavigation() {
             const targetId = item.getAttribute('data-target');
             document.getElementById(targetId).classList.add('active');
             pageTitle.textContent = item.getAttribute('data-title');
+            pageTitle.classList.toggle('home-title', targetId === 'home-view');
 
             // If investments tab, render home and load live data
             if (targetId === 'investments-view') {

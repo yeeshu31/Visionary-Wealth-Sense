@@ -53,13 +53,20 @@ body {
 }
 
 .app-header h1 {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     background: linear-gradient(to right, var(--primary-blue), var(--primary-purple));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     letter-spacing: -0.5px;
+    transition: font-size 0.2s ease;
+}
+
+.app-header h1.home-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -1px;
 }
 
 /* Back Button */
